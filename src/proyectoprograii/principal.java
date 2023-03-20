@@ -5,21 +5,26 @@
 package proyectoprograii;
 
 import java.awt.Color;
+import java.awt.List;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Danna Casco
  */
 public class principal extends javax.swing.JFrame {
-
+    ArrayList<Object> docentes = new ArrayList();
     Color originalColor = null;
     String id = null;
     String nombre = null;
     String apellido = null;
-    String profesion = null;
     String user = null;
     String pass = null;
     int val = 0;
@@ -33,7 +38,6 @@ public class principal extends javax.swing.JFrame {
         id = IdD.getText();
         nombre = nombreD.getText();
         apellido = apellidoD.getText();
-        profesion = profesionD.getText();
         user = userD.getText();
         pass = String.valueOf(passD.getPassword());
         val = (int) sueldoD.getValue();
@@ -110,7 +114,6 @@ public class principal extends javax.swing.JFrame {
         jLabel21 = new javax.swing.JLabel();
         nombreD = new javax.swing.JTextField();
         apellidoD = new javax.swing.JTextField();
-        profesionD = new javax.swing.JTextField();
         sueldoD = new javax.swing.JSpinner();
         jLabel22 = new javax.swing.JLabel();
         userD = new javax.swing.JTextField();
@@ -119,12 +122,12 @@ public class principal extends javax.swing.JFrame {
         passD = new javax.swing.JPasswordField();
         crearDB = new javax.swing.JButton();
         llenarT = new javax.swing.JLabel();
+        docenteCB2 = new javax.swing.JComboBox<>();
         modD1 = new javax.swing.JPanel();
         jLabel23 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
         nombreDm = new javax.swing.JTextField();
         apellidoDm = new javax.swing.JTextField();
-        profesionDm = new javax.swing.JTextField();
         sueldoDm = new javax.swing.JSpinner();
         jLabel32 = new javax.swing.JLabel();
         userDm = new javax.swing.JTextField();
@@ -134,6 +137,7 @@ public class principal extends javax.swing.JFrame {
         modificarB = new javax.swing.JButton();
         docenteCB = new javax.swing.JComboBox<>();
         llenarT1 = new javax.swing.JLabel();
+        docenteCB1 = new javax.swing.JComboBox<>();
         eliminarD = new javax.swing.JPanel();
         jButton3 = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
@@ -828,20 +832,6 @@ public class principal extends javax.swing.JFrame {
             }
         });
 
-        profesionD.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
-        profesionD.setForeground(new java.awt.Color(204, 204, 204));
-        profesionD.setText("Profesión");
-        profesionD.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                profesionDMouseClicked(evt);
-            }
-        });
-        profesionD.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                profesionDActionPerformed(evt);
-            }
-        });
-
         jLabel22.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel22.setForeground(new java.awt.Color(153, 153, 153));
         jLabel22.setText("Sueldo:    ");
@@ -889,6 +879,8 @@ public class principal extends javax.swing.JFrame {
         llenarT.setForeground(new java.awt.Color(255, 0, 0));
         llenarT.setText("*asegurese de llenar todos los campos*");
 
+        docenteCB2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ing. Sistemas", "Ing. AI", "Ing. civil", "Ing. Industrial", "Administración de empresas", "Psicología", "Odontología", "Nutrición", "Medicina", "Marketing", "Ing. eléctrica", "Arquitectura", " ", " " }));
+
         javax.swing.GroupLayout crearD1Layout = new javax.swing.GroupLayout(crearD1);
         crearD1.setLayout(crearD1Layout);
         crearD1Layout.setHorizontalGroup(
@@ -910,16 +902,16 @@ public class principal extends javax.swing.JFrame {
                                 .addGroup(crearD1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(nombreD, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(IdD, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(apellidoD, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(profesionD, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(apellidoD, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addContainerGap()))
-                        .addGroup(crearD1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(crearD1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(docenteCB2, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(crearD1Layout.createSequentialGroup()
                                 .addComponent(jLabel22)
                                 .addGap(18, 18, 18)
                                 .addComponent(sueldoD, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(userD, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(passD, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(userD, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(passD, javax.swing.GroupLayout.Alignment.LEADING)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, crearD1Layout.createSequentialGroup()
                         .addComponent(crearDB)
                         .addGap(239, 239, 239))
@@ -946,8 +938,8 @@ public class principal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(apellidoD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(profesionD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
+                .addComponent(docenteCB2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(11, 11, 11)
                 .addGroup(crearD1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(sueldoD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel22))
@@ -955,7 +947,7 @@ public class principal extends javax.swing.JFrame {
                 .addComponent(userD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
                 .addComponent(passD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                 .addComponent(llenarT)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(crearDB)
@@ -994,20 +986,6 @@ public class principal extends javax.swing.JFrame {
         apellidoDm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 apellidoDmActionPerformed(evt);
-            }
-        });
-
-        profesionDm.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
-        profesionDm.setForeground(new java.awt.Color(204, 204, 204));
-        profesionDm.setText("Profesión");
-        profesionDm.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                profesionDmMouseClicked(evt);
-            }
-        });
-        profesionDm.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                profesionDmActionPerformed(evt);
             }
         });
 
@@ -1056,6 +1034,8 @@ public class principal extends javax.swing.JFrame {
         llenarT1.setForeground(new java.awt.Color(255, 0, 0));
         llenarT1.setText("*asegurese de llenar todos los campos*");
 
+        docenteCB1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ing. Sistemas", "Ing. AI", "Ing. civil", "Ing. Industrial", "Administración de empresas", "Psicología", "Odontología", "Nutrición", "Medicina", "Marketing", "Ing. eléctrica", "Arquitectura", " ", " " }));
+
         javax.swing.GroupLayout modD1Layout = new javax.swing.GroupLayout(modD1);
         modD1.setLayout(modD1Layout);
         modD1Layout.setHorizontalGroup(
@@ -1074,15 +1054,15 @@ public class principal extends javax.swing.JFrame {
                                 .addComponent(nombreDm, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(modD1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(apellidoDm, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(profesionDm, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
                                     .addComponent(idDm, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(modD1Layout.createSequentialGroup()
                                         .addComponent(jLabel32)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                                         .addComponent(sueldoDm, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(userDm, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(passDm, javax.swing.GroupLayout.Alignment.LEADING))
-                                .addComponent(docenteCB, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(docenteCB, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(docenteCB1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(72, 72, 72))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, modD1Layout.createSequentialGroup()
                         .addComponent(jLabel23)
@@ -1112,8 +1092,8 @@ public class principal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(apellidoDm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(profesionDm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(docenteCB1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(5, 5, 5)
                 .addGroup(modD1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(sueldoDm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel32))
@@ -1368,6 +1348,9 @@ public class principal extends javax.swing.JFrame {
         String rol = "";
         String nombre = "";
         String apellido = "";
+        String sueldo = "";
+        String profesion = "";
+        String id = "";
 
         try {
             boolean encontrado;
@@ -1381,6 +1364,9 @@ public class principal extends javax.swing.JFrame {
                     rol = partes[2];
                     nombre = partes[3];
                     apellido = partes[4];
+                    sueldo = partes[5];
+                    profesion = partes[6];
+                    id = partes[7];
 
                     if (usuarioActual.equals(usuario) && contraseñaActual.equals(contraseña)) {
                         encontrado = true;
@@ -1544,10 +1530,6 @@ public class principal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_apellidoDActionPerformed
 
-    private void profesionDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profesionDActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_profesionDActionPerformed
-
     private void nombreDmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreDmActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_nombreDmActionPerformed
@@ -1555,10 +1537,6 @@ public class principal extends javax.swing.JFrame {
     private void apellidoDmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_apellidoDmActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_apellidoDmActionPerformed
-
-    private void profesionDmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profesionDmActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_profesionDmActionPerformed
 
     private void modDMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_modDMouseClicked
         // TODO add your handling code here:
@@ -1644,12 +1622,6 @@ public class principal extends javax.swing.JFrame {
         apellidoD.setForeground(Color.BLACK);
     }//GEN-LAST:event_apellidoDMouseClicked
 
-    private void profesionDMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_profesionDMouseClicked
-        // TODO add your handling code here:
-        profesionD.setText("");
-        profesionD.setForeground(Color.BLACK);
-    }//GEN-LAST:event_profesionDMouseClicked
-
     private void userDMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userDMouseClicked
         // TODO add your handling code here:
         userD.setText("");
@@ -1665,13 +1637,21 @@ public class principal extends javax.swing.JFrame {
     private void crearDBMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_crearDBMouseClicked
         // TODO add your handling code here:
         int s = (int) sueldoD.getValue();
-        if (IdD.getText().equals("") || nombreD.getText().equals("") || profesionD.getText().equals("") || userD.getText().equals("") || String.valueOf(passD.getPassword()).equals("") || s <= 0) {
+        if (IdD.getText().equals("") || nombreD.getText().equals("") || userD.getText().equals("") || String.valueOf(passD.getPassword()).equals("") || s <= 0) {
             llenarT.setVisible(true);
         } else {
+
+            FileWriter writer;
+            try {
+                writer = new FileWriter("./usuarios.txt", true);
+                writer.write(userD.getText() + "|" + String.valueOf(passD.getPassword()) + "|" + "docente" + "|" + nombreD.getText() + "|" + apellidoD.getText() + "|" + sueldoD.getValue() + "|" + docenteCB2.getSelectedItem() + "|" + IdD.getText() + "\n");
+                writer.close();
+            } catch (IOException ex) {
+            }
+
             IdD.setForeground(Color.gray);
             nombreD.setForeground(Color.gray);
             apellidoD.setForeground(Color.gray);
-            profesionD.setForeground(Color.gray);
             sueldoD.setForeground(Color.gray);
             userD.setForeground(Color.gray);
             passD.setForeground(Color.gray);
@@ -1679,7 +1659,6 @@ public class principal extends javax.swing.JFrame {
             IdD.setText(id);
             nombreD.setText(nombre);
             apellidoD.setText(apellido);
-            profesionD.setText(profesion);
             sueldoD.setValue(val);
             userD.setText(user);
             passD.setText(pass);
@@ -1700,12 +1679,6 @@ public class principal extends javax.swing.JFrame {
         apellidoDm.setForeground(Color.BLACK);
     }//GEN-LAST:event_apellidoDmMouseClicked
 
-    private void profesionDmMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_profesionDmMouseClicked
-        // TODO add your handling code here:
-        profesionDm.setText("");
-        profesionDm.setForeground(Color.BLACK);
-    }//GEN-LAST:event_profesionDmMouseClicked
-
     private void userDmMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userDmMouseClicked
         // TODO add your handling code here:
         userDm.setText("");
@@ -1715,13 +1688,36 @@ public class principal extends javax.swing.JFrame {
     private void modificarBMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_modificarBMouseClicked
         // TODO add your handling code here:
         int s = (int) sueldoDm.getValue();
-        if (idDm.getText().equals("") || nombreDm.getText().equals("") || profesionDm.getText().equals("") || userDm.getText().equals("") || String.valueOf(passDm.getPassword()).equals("") || s <= 0 || docenteCB.getItemCount() == 0) {
+        if (idDm.getText().equals("") || nombreDm.getText().equals("") || userDm.getText().equals("") || String.valueOf(passDm.getPassword()).equals("") || s <= 0 || docenteCB.getItemCount() == 0) {
             llenarT1.setVisible(true);
         } else {
+
+            File archivo = new File("./usuarios.txt");
+            try {
+                FileWriter escritor = new FileWriter(archivo, true);
+                FileReader lector = new FileReader(archivo);
+                BufferedReader bufferedReader = new BufferedReader(lector);
+
+                ArrayList<String> lineas = new ArrayList();
+                String lineaActual;
+
+                while ((lineaActual = bufferedReader.readLine()) != null) {
+                    lineas.add(lineaActual);
+                    lector.close();
+                    lineas.set(1, "nueva línea");
+                    for (String linea : lineas) {
+                        escritor.write(linea + "\n");
+                    }
+
+                    escritor.close();
+                }
+
+            } catch (IOException ex) {
+            }
+
             idDm.setForeground(Color.gray);
             nombreDm.setForeground(Color.gray);
             apellidoDm.setForeground(Color.gray);
-            profesionDm.setForeground(Color.gray);
             sueldoDm.setForeground(Color.gray);
             userDm.setForeground(Color.gray);
             passDm.setForeground(Color.gray);
@@ -1729,7 +1725,6 @@ public class principal extends javax.swing.JFrame {
             idDm.setText(id);
             nombreDm.setText(nombre);
             apellidoDm.setText(apellido);
-            profesionDm.setText(profesion);
             sueldoDm.setValue(val);
             userDm.setText(user);
             passDm.setText(pass);
@@ -1814,6 +1809,8 @@ public class principal extends javax.swing.JFrame {
     private javax.swing.JPanel crearDP1;
     private javax.swing.JLabel deleteD;
     private javax.swing.JComboBox<String> docenteCB;
+    private javax.swing.JComboBox<String> docenteCB1;
+    private javax.swing.JComboBox<String> docenteCB2;
     private javax.swing.JPanel docentesP;
     private javax.swing.JPanel eliminarD;
     private javax.swing.JPanel eliminarDP1;
@@ -1878,8 +1875,6 @@ public class principal extends javax.swing.JFrame {
     private javax.swing.JPasswordField passD;
     private javax.swing.JPasswordField passDm;
     private javax.swing.JPasswordField passwordTF;
-    private javax.swing.JTextField profesionD;
-    private javax.swing.JTextField profesionDm;
     private javax.swing.JPanel registroP;
     private javax.swing.JLabel registrou1;
     private javax.swing.JSpinner sueldoD;

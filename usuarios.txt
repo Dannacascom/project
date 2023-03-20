@@ -1,3 +1,4 @@
-andreacascom|1234|registro|Andrea|Casco
-andreacascom2|1234|alumno|Andrea|Casco
-andreacascom3|1234|docente|Andrea|Casco
+andreacascom|1234|registro|Andrea|Casco|32132|Ing|342432
+andreacascom2|1234|alumno|Andrea|Casco|3213|dgsg|23423
+andreacascom3|1234|docente|Andrea|Casco|22313|vsvs|23213
+dannacascom|1234|registro|danna|casco|32000|Ing. AI|3123123
