@@ -1,0 +1,3 @@
+andreacascom|1234|registro|Andrea|Casco
+andreacascom2|1234|alumno|Andrea|Casco
+andreacascom3|1234|docente|Andrea|Casco
